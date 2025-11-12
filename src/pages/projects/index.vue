@@ -1,5 +1,19 @@
-<script setup lang='ts'>
+<script setup lang="ts">
+import { supabase } from '@/lib/supabaseClient';
 
+let projects: any[] = [];
+
+(async () => {
+  const { data, error } = await supabase.from('projects').select('*');
+
+  if (error) {
+    console.error('Error fetching projects:', error);
+    return;
+  }
+
+  console.log('Projects data:', data);
+  projects = data;
+})();
 </script>
 
 <template>
